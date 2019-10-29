@@ -1,25 +1,25 @@
 package by;
 
+import by.sulitsenko.autop.entity.CarInfo;
+import by.sulitsenko.autop.parser.AvParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
 public class App {
 
     public static void main(String[] args) {
-        String url = "https://cars.av.by/";
+        String url = "https://cars.av.by/mercedes-benz/c-klass/16226389";
         Document document;
         try {
             document = Jsoup.connect(url).get();
-            Elements elements = document.select("div h4 a");
-            String cars = elements.text();
+            AvParser parser = new AvParser();
+            CarInfo carInfo = parser.parse(document);
+            System.out.println(carInfo);
 
-            System.out.println(cars);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
